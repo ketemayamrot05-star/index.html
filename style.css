@@ -1,0 +1,116 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #3b2f2f;
+  line-height: 1.6;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #8b5e3c, #c2a14d);
+  padding: 15px 40px;
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 45px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.site-name {
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Navigation */
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 25px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.nav a:hover {
+  color: gold;
+  border-bottom: 2px solid gold;
+}
+
+/* Content */
+.content {
+  padding: 50px;
+}
+
+/* Sections */
+section {
+  margin-bottom: 60px;
+}
+
+h1 {
+  margin-bottom: 15px;
+  color: #5a3e2b;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Button */
+.btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #8b5e3c;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #c2a14d;
+}
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
