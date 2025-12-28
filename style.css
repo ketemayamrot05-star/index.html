@@ -1,116 +1,178 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+/* ===================== CSS VARIABLES ===================== */ :root { --primary: #8b5e3c; --secondary: #c2a14d; --dark: black; --light: #f4f4f4; --white: #ffffff; --shadow: 0 8px 20px rgba(0, 0, 0, 0.2); --radius: 16px; --transition: all 0.4s ease; } /* ===================== RESET ===================== */ * { margin: 0; padding: 0; box-sizing: border-box; } /* ===================== BODY ===================== */ body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.7; } /* ===================== HEADER ===================== */ .header { position: sticky; top: 0; z-index: 1000; background: linear-gradient(to right, var(--primary), var(--secondary)); box-shadow: var(--shadow); } .header-container { max-width: 1200px; margin: auto; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; } /* ===================== LOGO ===================== */ .branding { display: flex; align-items: center; } .logo { width: 50px; border-radius: 50%; margin-right: 12px; } .site-title { font-size: 28px; font-weight: bold; color: var(--white); } /* ===================== NAVIGATION ===================== */ .navigation ul { list-style: none; display: flex; gap: 25px; } .navigation a { color: var(--white); text-decoration: none; font-size: 16px; position: relative; transition: var(--transition); } .navigation a::after { content: ""; position: absolute; left: 0; bottom: -6px; width: 0%; height: 2px; background-color: gold; transition: var(--transition); } .navigation a:hover::after { width: 100%; } .navigation a:hover { color: gold; } /* ===================== MAIN CONTENT ===================== */ main { max-width: 1200px; margin: auto; padding: 60px 30px; } /* ===================== HERO SECTION ===================== */ .hero { text-align: center; padding: 80px 20px; background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url("Masai_Mara_at_Sunset.jpg") center/cover no-repeat; color: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); } .hero h2 { font-size: 40px; margin-bottom: 15px; } .hero p { font-size: 18px; max-width: 700px; margin: auto; } /* ===================== SECTIONS ===================== */ section { margin-bottom: 80px; } section h2 { color: var(--primary); margin-bottom: 15px; font-size: 28px; } section p { margin-bottom: 12px; } section ul { margin-left: 20px; margin-bottom: 15px; } section ul li { margin-bottom: 8px; } /* ===================== JOURNEY CARDS ===================== */ .journey article { background: var(--white); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 30px; transition: var(--transition); } .journey article:hover { transform: translateY(-6px); } /* ===================== BUTTON ===================== */ .btn { padding: 12px 30px; background-color: var(--primary); color: var(--white); border: none; border-radius: 30px; cursor: pointer; font-size: 16px; transition: var(--transition); } .btn:hover { background-color: var(--secondary); transform: scale(1.05); } /* ===================== GALLERY ===================== */ .gallery-section h2 { text-align: center; margin-bottom: 40px; } .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; } .gallery-grid figure { overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow); } .gallery-grid img { width: 100%; height: 200px; object-fit: cover; transition: var(--transition); } .gallery-grid figure:hover img { transform: scale(1.15); } .gallery-grid figcaption { text-align: center; padding: 10px; background: var(--white); font-size: 14px; } /* ===================== CONTACT ===================== */ .contact { background: var(--white); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); } .login-form { max-width: 400px; margin-bottom: 40px; } .form-group { margin-bottom: 20px; } .form-group label { display: block; margin-bottom: 5px; } .form-group input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; outline: none; } .form-group input:focus { border-color: var(--primary); } /* ===================== FOOTER ===================== */ .footer { background: linear-gradient(to right, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 25px; } /* ===================== RESPONSIVE ===================== */ @media (max-width: 768px) { .header-container { flex-direction: column; gap: 15px; } .navigation ul { flex-direction: column; gap: 15px; } .hero h2 { font-size: 30px; } main { padding: 40px 20px; } }/* ===================== ADVANCED ACCESSIBILITY ===================== */
+:focus-visible {
+  outline: 3px solid var(--secondary);
+  outline-offset: 4px;
 }
 
-/* Body */
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #3b2f2f;
-  line-height: 1.6;
+/* ===================== DARK MODE (AUTO) ===================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --light: #1e1e1e;
+    --white: #2b2b2b;
+    --dark: #f0f0f0;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  }
+
+  body {
+    background-color: var(--light);
+    color: var(--dark);
+  }
+
+  .hero {
+    box-shadow: none;
+  }
 }
 
-/* Header */
+/* ===================== GLASS HEADER (OPTIONAL) ===================== */
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to right, #8b5e3c, #c2a14d);
-  padding: 15px 40px;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    to right,
+    rgba(139, 94, 60, 0.9),
+    rgba(194, 161, 77, 0.9)
+  );
 }
 
-/* Logo */
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: 45px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.site-name {
-  font-size: 26px;
-  font-weight: bold;
-  color: white;
-}
-
-/* Navigation */
-.nav a {
-  color: white;
-  text-decoration: none;
-  margin-left: 25px;
-  font-size: 16px;
-  transition: 0.3s;
-}
-
-.nav a:hover {
+/* ===================== NAV ACTIVE STATE ===================== */
+.navigation a.active {
   color: gold;
-  border-bottom: 2px solid gold;
 }
 
-/* Content */
-.content {
-  padding: 50px;
-}
-
-/* Sections */
-section {
-  margin-bottom: 60px;
-}
-
-h1 {
-  margin-bottom: 15px;
-  color: #5a3e2b;
-}
-
-h2 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-/* Button */
-.btn {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #8b5e3c;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background-color: #c2a14d;
-}
-
-/* Gallery */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-}
-
-.gallery img {
+.navigation a.active::after {
   width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  transition: 0.4s;
-  cursor: pointer;
 }
 
-.gallery img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+/* ===================== MICRO INTERACTIONS ===================== */
+.navigation a {
+  letter-spacing: 0.3px;
 }
 
+.navigation a:hover {
+  transform: translateY(-2px);
+}
+
+/* ===================== HERO TEXT ANIMATION ===================== */
+.hero h2 {
+  animation: fadeSlide 1s ease forwards;
+}
+
+.hero p {
+  animation: fadeSlide 1.2s ease forwards;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================== REVEAL ANIMATION SUPPORT ===================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===================== JOURNEY CARD ENHANCEMENT ===================== */
+.journey article {
+  position: relative;
+  overflow: hidden;
+}
+
+.journey article::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(194, 161, 77, 0.15),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.journey article:hover::before {
+  opacity: 1;
+}
+
+/* ===================== BUTTON RIPPLE FEEL ===================== */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+/* ===================== IMAGE PERFORMANCE ===================== */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===================== GALLERY ADVANCED EFFECT ===================== */
+.gallery-grid figure {
+  position: relative;
+}
+
+.gallery-grid figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  transform: translateY(100%);
+  transition: var(--transition);
+}
+
+.gallery-grid figure:hover figcaption {
+  transform: translateY(0);
+}
+
+/* ===================== CONTACT FORM UX ===================== */
+.form-group input {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+  box-shadow: 0 0 0 3px rgba(139, 94, 60, 0.3);
+}
+
+/* ===================== REDUCED MOTION ===================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===================== TOUCH DEVICE IMPROVEMENT ===================== */
+@media (hover: none) 
+  .navigation a:hover,
+  .btn:hover,
+  .journey article:hover {
+    transform: none;
+  }
