@@ -1,192 +1,387 @@
-<!DOCTYPE html>
-<html lang="en">
+import React, { useState } from 'react';
+import { Search, ShoppingBag, Heart, Menu, X, Star, Truck, Shield, RotateCcw, MapPin, Phone, Mail } from 'lucide-react';
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-  <!-- SEO -->
-  <meta name="description" content="African Wildlife documents, protects, and conserves Africa’s wildlife and ecosystems.">
-  <meta name="keywords" content="African Wildlife, Conservation, Great Migration, Serengeti, Safari">
-  <meta name="author" content="African Wildlife Organization">
+  const categories = [
+    'All Products',
+    'Electronics',
+    'Fashion',
+    'Home & Kitchen',
+    'Beauty',
+    'Books',
+    'Sports',
+    'Groceries'
+  ];
 
-  <title>African Wildlife</title>
+  const products = [
+    {
+      id: 1,
+      name: 'Traditional Ethiopian Coffee Set',
+      price: 1200,
+      originalPrice: 1500,
+      rating: 4.8,
+      reviews: 124,
+      image: 'https://placehold.co/300x300/8B4513/FFFFFF?text=Coffee+Set',
+      category: 'Home & Kitchen',
+      badge: 'Best Seller'
+    },
+    {
+      id: 2,
+      name: 'Handwoven Ethiopian Scarf',
+      price: 850,
+      originalPrice: 1000,
+      rating: 4.6,
+      reviews: 89,
+      image: 'https://placehold.co/300x300/228B22/FFFFFF?text=Scarf',
+      category: 'Fashion',
+      badge: 'New'
+    },
+    {
+      id: 3,
+      name: 'Ethiopian Coffee Beans (1kg)',
+      price: 450,
+      originalPrice: 500,
+      rating: 4.9,
+      reviews: 256,
+      image: 'https://placehold.co/300x300/654321/FFFFFF?text=Coffee+Beans',
+      category: 'Groceries',
+      badge: 'Popular'
+    },
+    {
+      id: 4,
+      name: 'Smartphone - Local Model',
+      price: 8500,
+      originalPrice: 9500,
+      rating: 4.3,
+      reviews: 67,
+      image: 'https://placehold.co/300x300/4A4A4A/FFFFFF?text=Smartphone',
+      category: 'Electronics',
+      badge: 'Sale'
+    },
+    {
+      id: 5,
+      name: 'Traditional Ethiopian Dress',
+      price: 2200,
+      originalPrice: 2800,
+      rating: 4.7,
+      reviews: 45,
+      image: 'https://placehold.co/300x300/800080/FFFFFF?text=Traditional+Dress',
+      category: 'Fashion',
+      badge: 'Trending'
+    },
+    {
+      id: 6,
+      name: 'Injera Maker Machine',
+      price: 3500,
+      originalPrice: 4200,
+      rating: 4.5,
+      reviews: 32,
+      image: 'https://placehold.co/300x300/2F4F4F/FFFFFF?text=Injera+Maker',
+      category: 'Home & Kitchen',
+      badge: 'Hot'
+    }
+  ];
 
-  <link rel="stylesheet" href="style.css">
-</head>
+  const filteredProducts = selectedCategory === 'all' 
+    ? products 
+    : products.filter(product => product.category === selectedCategory);
 
-<body>
+  const services = [
+    {
+      icon: Truck,
+      title: 'Fast Delivery',
+      description: 'Same day delivery in Addis Ababa'
+    },
+    {
+      icon: Shield,
+      title: 'Secure Payment',
+      description: 'Safe and trusted payment methods'
+    },
+    {
+      icon: RotateCcw,
+      title: 'Easy Returns',
+      description: '30-day return policy'
+    },
+    {
+      icon: Star,
+      title: 'Quality Guarantee',
+      description: 'Authentic products only'
+    }
+  ];
 
-<!-- ================= HEADER ================= -->
-<header class="header" role="banner">
-  <div class="header-container">
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex items-center">
+              <ShoppingBag className="h-8 w-8 text-emerald-600" />
+              <span className="ml-2 text-2xl font-bold text-gray-900">EthioMart</span>
+            </div>
 
-    <div class="branding">
-      <img src="Sun_28_12_2025_02_20_45.png" alt="African Wildlife Logo" class="logo">
-      <h1 class="site-title">African Wildlife</h1>
+            {/* Search Bar */}
+            <div className="hidden md:flex flex-1 max-w-2xl mx-8">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="text"
+                  placeholder="Search for products in Addis Ababa..."
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                />
+              </div>
+            </div>
+
+            {/* User Actions */}
+            <div className="flex items-center space-x-4">
+              <button className="p-2 text-gray-600 hover:text-emerald-600 relative">
+                <Heart className="h-6 w-6" />
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+              </button>
+              <button className="p-2 text-gray-600 hover:text-emerald-600 relative">
+                <ShoppingBag className="h-6 w-6" />
+                <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">2</span>
+              </button>
+              
+              {/* Mobile Menu Button */}
+              <button 
+                className="md:hidden"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Search */}
+        <div className="md:hidden px-4 py-3 bg-gray-50">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* Navigation */}
+      <nav className="bg-emerald-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-3">
+            <div className="flex items-center space-x-2">
+              <MapPin className="h-5 w-5" />
+              <span className="font-medium">Addis Ababa, Ethiopia</span>
+            </div>
+            
+            {/* Desktop Categories */}
+            <div className="hidden md:flex space-x-6 overflow-x-auto">
+              {categories.map((category, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedCategory(index === 0 ? 'all' : category)}
+                  className={`whitespace-nowrap px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                    selectedCategory === 'all' && index === 0 || selectedCategory === category
+                      ? 'bg-white text-emerald-600'
+                      : 'hover:bg-emerald-700'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Categories */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-emerald-700 px-4 py-4">
+            <div className="grid grid-cols-2 gap-2">
+              {categories.map((category, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setSelectedCategory(index === 0 ? 'all' : category);
+                    setIsMenuOpen(false);
+                  }}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium text-center transition-colors ${
+                    selectedCategory === 'all' && index === 0 || selectedCategory === category
+                      ? 'bg-white text-emerald-600'
+                      : 'text-white hover:bg-emerald-800'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-emerald-600 to-emerald-800 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Shop Local, Support Ethiopia
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 text-emerald-100">
+            Discover authentic Ethiopian products with fast delivery across Addis Ababa
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="bg-white text-emerald-600 px-8 py-3 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors">
+              Shop Now
+            </button>
+            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-white hover:text-emerald-600 transition-colors">
+              View Deals
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {services.map((service, index) => (
+              <div key={index} className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg">
+                <service.icon className="h-8 w-8 text-emerald-600" />
+                <div>
+                  <h3 className="font-semibold text-gray-900">{service.title}</h3>
+                  <p className="text-sm text-gray-600">{service.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-bold text-gray-900">Featured Products</h2>
+            <button className="text-emerald-600 hover:text-emerald-700 font-medium">View All</button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => (
+              <div key={product.id} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                {product.badge && (
+                  <div className="absolute bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-br-lg rounded-tl-lg z-10">
+                    {product.badge}
+                  </div>
+                )}
+                <div className="relative">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-48 object-cover"
+                  />
+                  <button className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100">
+                    <Heart className="h-4 w-4 text-gray-600" />
+                  </button>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
+                  <div className="flex items-center mb-2">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star 
+                          key={i} 
+                          className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                        />
+                      ))}
+                    </div>
+                    <span className="text-sm text-gray-600 ml-2">({product.reviews})</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-lg font-bold text-emerald-600">ETB {product.price.toLocaleString()}</span>
+                      {product.originalPrice > product.price && (
+                        <span className="text-sm text-gray-500 line-through ml-2">
+                          ETB {product.originalPrice.toLocaleString()}
+                        </span>
+                      )}
+                    </div>
+                    <button className="bg-emerald-600 text-white px-3 py-1 rounded-lg hover:bg-emerald-700 transition-colors text-sm">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Info */}
+      <section className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <MapPin className="h-5 w-5 text-emerald-400" />
+                  <span>Bole, Addis Ababa, Ethiopia</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Phone className="h-5 w-5 text-emerald-400" />
+                  <span>+251 11 123 4567</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Mail className="h-5 w-5 text-emerald-400" />
+                  <span>info@ethiomart.et</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-4">Delivery Areas</h3>
+              <p className="text-gray-300">
+                We deliver to all major areas in Addis Ababa including Bole, Kazanchis, Sidist Kilo, 
+                Mexico, CMC, and surrounding neighborhoods with same-day delivery options.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-4">Payment Methods</h3>
+              <p className="text-gray-300">
+                We accept CBE Birr, TeleBirr, bank transfers, and cash on delivery. 
+                All transactions are secure and encrypted.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex items-center justify-center mb-4">
+            <ShoppingBag className="h-6 w-6 text-emerald-400" />
+            <span className="ml-2 text-xl font-bold">EthioMart</span>
+          </div>
+          <p className="text-gray-400 mb-4">
+            Ethiopia's premier e-commerce platform serving Addis Ababa and beyond
+          </p>
+          <div className="flex justify-center space-x-6 text-sm text-gray-400">
+            <a href="#" className="hover:text-white">Privacy Policy</a>
+            <a href="#" className="hover:text-white">Terms of Service</a>
+            <a href="#" className="hover:text-white">About Us</a>
+            <a href="#" className="hover:text-white">Careers</a>
+          </div>
+          <p className="text-gray-500 mt-4 text-sm">
+            &copy; 2025 EthioMart. All rights reserved. Made in Ethiopia.
+          </p>
+        </div>
+      </footer>
     </div>
+  );
+};
 
-    <nav class="navigation" role="navigation" aria-label="Main Navigation">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#journey">Journey</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-
-  </div>
-</header>
-
-<!-- ================= MAIN CONTENT ================= -->
-<main>
-
-<!-- ===== HOME SECTION ===== -->
-<section id="home" class="hero">
-  <article>
-    <h2>Welcome to African Wildlife</h2>
-    <p>
-      Dedicated to documenting, protecting, and preserving Africa’s wildlife
-      through education, conservation, and powerful storytelling.
-    </p>
-  </article>
-</section>
-
-<!-- ===== JOURNEY SECTION ===== -->
-<section id="journey" class="journey">
-
-  <article>
-    <h2>🎥 Wildlife Documentaries</h2>
-    <p>
-      African Wildlife produces world-class documentaries capturing
-      real animal behavior in their natural habitats.
-    </p>
-
-    <ul>
-      <li>Animal survival and migration</li>
-      <li>Endangered species awareness</li>
-      <li>Global conservation education</li>
-    </ul>
-
-    <p>
-      Our work is streamed on global platforms such as
-      <strong>Netflix</strong> and <strong>Amazon Prime</strong>.
-    </p>
-  </article>
-
-  <article>
-    <h2>🛡 Conservation & Protection</h2>
-    <p>
-      We collaborate with rangers, park authorities, and local communities
-      to protect wildlife from illegal hunting and poaching.
-    </p>
-
-    <ul>
-      <li>Anti-poaching patrols</li>
-      <li>Migration protection zones</li>
-      <li>Community conservation programs</li>
-    </ul>
-  </article>
-
-  <article>
-    <h2>🐃 The Great Migration</h2>
-    <p>
-      Each year, over <strong>1.5–2 million</strong> wildebeest,
-      zebras, and antelopes travel across the Serengeti–Mara ecosystem.
-    </p>
-
-    <p>
-      This journey includes dangerous river crossings, predators,
-      harsh weather, and limited water sources.
-    </p>
-  </article>
-
-  <article>
-    <h2>🏞 Key Areas of Operation</h2>
-    <ul>
-      <li>Serengeti National Park – Tanzania</li>
-      <li>Masai Mara National Reserve – Kenya</li>
-      <li>Simien Mountains – Ethiopia</li>
-      <li>Bale Mountains – Ethiopia</li>
-    </ul>
-  </article>
-
-  <article>
-    <h2>🌱 Vision & Values</h2>
-    <p><strong>Vision:</strong> A future where humans and wildlife coexist peacefully.</p>
-
-    <ul>
-      <li>Conservation</li>
-      <li>Education</li>
-      <li>Respect for Nature</li>
-      <li>Sustainability</li>
-      <li>Global Awareness</li>
-    </ul>
-  </article>
-
-</section>
-
-<!-- ===== GALLERY SECTION ===== -->
-<section id="gallery" class="gallery-section">
-
-  <h2>Wildlife Gallery</h2>
-
-  <div class="gallery-grid">
-
-    <figure>
-      <img src="images.jpg" alt="African wildlife in nature">
-      <figcaption>African Wildlife</figcaption>
-    </figure>
-
-    <figure>
-      <img src="Masai_Mara_at_Sunset.jpg" alt="Masai Mara sunset">
-      <figcaption>Masai Mara Sunset</figcaption>
-    </figure>
-
-    <figure>
-      <img src="bush-walk-serengeti-national-park.jpg" alt="Serengeti National Park">
-      <figcaption>Serengeti National Park</figcaption>
-    </figure>
-
-    <figure>
-      <img src="Serengeti-National-Park-Tanzania-Best-Things-to-Do-Top-Picks.webp" alt="Serengeti Landscape">
-      <figcaption>Serengeti Landscape</figcaption>
-    </figure>
-    
-    <figure>
-      <img src="OIP (4).webp" alt="Bale's Animals">
-      <figcaption>Bale's Animal</figcaption>
-    </figure>
-    <figure>
-      <img src="OIP (1).webp" alt="Bale Mountains">
-      <figcaption>Bale Mountains</figcaption>
-    </figure>
-    <figure>
-      <img src="OIP.webp" alt="Black Lion of Ethiopia">
-      <figcaption>Black Lion of Ethiopia</figcaption>
-    </figure>
-    <figure>
-  <img src="OIP (5).webp" alt="Bale's endemic plant">
-  <figcaption>Bale's endemic plant</figcaption>
-    </figure>
-
-  </div>
-
-</section>
-
-<!-- ===== CONTACT SECTION ===== -->
-<section id="contact" class="contact">
-
-  <h2>Login</h2>
-
-  <form class="login-form" aria-label="Login Form">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-      <label for="phone number">Phone number</label>
-      <input type="phone number" id="phone number" name="phone number" required>    
-        <button class="btn">Login</button>
-    </div>
-
-    <div class="form-group">
-    
+export default App;
